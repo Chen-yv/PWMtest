@@ -8,23 +8,23 @@ void PWM_Init(void){
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct;
 	GPIO_InitTypeDef GPIO_InitStruct;
 	TIM_OCInitTypeDef TIM_OCInitStruct;
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
 
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
-	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_2;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_7;
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 
-	GPIO_Init(GPIOA, &GPIO_InitStruct);
+	GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-	TIM_InternalClockConfig(TIM2);
+	TIM_InternalClockConfig(TIM4);
 	TIM_TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInitStruct.TIM_Period = 100-1;
 	TIM_TimeBaseInitStruct.TIM_Prescaler = 720-1;
 	TIM_TimeBaseInitStruct.TIM_RepetitionCounter = 0;
 
-	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseInitStruct);
+	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseInitStruct);
 
 	TIM_OCStructInit(&TIM_OCInitStruct);
 
@@ -33,12 +33,12 @@ void PWM_Init(void){
 	TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;;
 	TIM_OCInitStruct.TIM_Pulse = 50;
 
-	TIM_OC3Init(TIM2, &TIM_OCInitStruct);
-	TIM_Cmd(TIM2,ENABLE);
+	TIM_OC2Init(TIM4, &TIM_OCInitStruct);
+	TIM_Cmd(TIM4,ENABLE);
 }
 
 void PWM_SetCompare1(uint16_t compare){
-	TIM_SetCompare3(TIM2, compare);
+	TIM_SetCompare2(TIM4, compare);
 }
 
 
